@@ -861,7 +861,76 @@ class DataPage(tk.Frame):
         del_button.bind("<Leave>", on_leave)
 
 # sanchit add export fxn/
+def exportstudent():
+            # Ask the user to provide a filename and location for the exported file
+            file_path = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV Files", "*.csv")],
+                                                     title="Save CSV File")
 
+            # Check if the user canceled the save dialog
+            if not file_path:
+                return
+
+            try:
+                # Get the current displayed records in the Treeview widget
+                selected_records = tree.get_children()
+
+                if len(selected_records) == 0:
+                    messagebox.showinfo("Info", "No records to export.")
+                    return
+
+                # Create empty lists for each column
+                name, mis, contact, email, branch, cgpa,category,city = [], [], [], [], [], [], [], []
+
+                # Extract data from each selected record
+                for record_id in selected_records:
+                    values = tree.item(record_id)["values"]
+                    name.append(values[0])
+                    mis.append(values[1])
+                    contact.append(values[2])
+                    email.append(values[3])
+                    branch.append(values[4])
+                    cgpa.append(values[5])
+                    category.append(values[6])
+                    city.append(values[7])
+
+
+                # Create a DataFrame with the extracted data
+                data = {"Name": name, "MIS": mis, "Contact": contact, "Email": email, "Branch": branch, "CGPA": cgpa,
+                        "City": city, "Category": category}
+                df = pandas.DataFrame(data)
+
+                # Check if the user canceled the save dialog
+                if file_path == "":
+                    return
+
+                # Save the DataFrame to a CSV file
+                df.to_csv(file_path, index=False)
+
+                messagebox.showinfo("Success", f"Student data is saved: {file_path}")
+            except Exception as e:
+                messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
+
+
+        self.exp_img = tk.PhotoImage(file='Images/export.png')
+
+        def on_enter(event):
+            exp_button.config(cursor="hand2")
+
+        def on_leave(event):
+            exp_button.config(cursor="")
+
+        exp_button = tk.Button(left_frame,
+                               relief='groove',
+                               image=self.exp_img,
+                               bg='#282c34',
+                               bd=0,
+                               command=exportstudent,
+                               activebackground='#282c34'
+                               )
+        exp_button.place(x=62, y=470)
+        exp_button.bind("<Enter>", on_enter)
+        exp_button.bind("<Leave>", on_leav
 
 
 
