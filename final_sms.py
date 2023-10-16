@@ -353,12 +353,38 @@ class MenuPage(tk.Frame):
                                   image=self.Data_img,
                                   activebackground='#21252b'
                                   )
-        self.Data_button.place(x=550, y=45)
+        self.Data_button.place(x=350, y=45)
         self.Data_button.bind("<Enter>", on_enter)
         self.Data_button.bind("<Leave>", on_leave)
 
 
-# aditya add settings page
+        # function for going in Delete page
+        def Settings():
+            controller.show_frame('SettingsPage')
+
+        def on_enter(event):
+            self.Settings_button.config(cursor="hand2")
+
+        def on_leave(event):
+            self.Settings_button.config(cursor="")
+        # creating button for delete
+        self.Settings_img = tk.PhotoImage(file='Images/settings.png')
+
+        self.Settings_button = tk.Button(self.left_frame,
+                                command=Settings,
+                                relief='raised',
+                                bd=0,
+                                image=self.Settings_img,
+                                background='#21252b',
+                                activebackground='#21252b'
+                                )
+        self.Settings_button.place(x=650, y=45)
+        self.Settings_button.bind("<Enter>", on_enter)
+        self.Settings_button.bind("<Leave>", on_leave)
+
+
+
+
 
         # function for exiting the current page and goin to previous page
         def exit():
