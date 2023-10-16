@@ -1093,8 +1093,6 @@ class SettingsPage(tk.Frame):
         ch_pass_frame = tk.Frame(self, border=1,bg="#282c34")
         ch_pass_frame.place(x=20, y=135,relwidth=0.97,height=300)
 
-
-
         # Heading Label
         heading_label = ttk.Label(ch_pass_frame, text="CHANGE USERNAME",
                                   font="Arial 20 bold", foreground='#4eacfe',background="#282c34")
